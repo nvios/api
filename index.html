@@ -1,1 +1,29 @@
-<iframe id="googleFrame" width="100%" height="100%" frameborder="0" src="https://script.google.com/macros/s/AKfycbyLRpVCgCC2jyaFKtemWXLqvPuPpFeYc28o-9xXHm9UVDpQDwSseAD8GGiMSNyGKBO8/exec?id=1"></iframe>
+<html>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script>
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+
+  const id = params["id"];
+  const queryString = id ? `id=${id}` : "";
+  var url = `https://script.google.com/macros/s/AKfycbynJtEkp3EgXA7jFdLSdI0ioKWUEWVnW6iNJ_vtR9U-PuSlhU5cwwZSXwNaolMzk0qi/exec?${queryString}`;
+  
+  async function getData() {
+    const response = await jQuery.ajax({
+      crossDomain: true,
+      url: url,
+      method: "GET",
+    });
+    return response;
+  }
+
+  (async function loadData() {
+    const content = await getData();
+    document.getElementsByTagName('html')[0].innerHTML = content;
+  })();
+
+</script>
+
+</html>
